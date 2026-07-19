@@ -1,0 +1,24 @@
+{
+  "name": "@webconsulting/typo3-image-workbench-assets",
+  "version": "0.1.0",
+  "private": true,
+  "license": "GPL-2.0-or-later",
+  "type": "module",
+  "scripts": {
+    "build": "node esbuild.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.8",
+    "filerobot-image-editor": "5.0.0-beta.159",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-filerobot-image-editor": "5.0.0-beta.159",
+    "react-konva": "^19.2.0",
+    "styled-components": "^5.3.11"
+  },
+  "overrides": {
+    "filerobot-image-editor": {
+      "react-filerobot-image-editor": "5.0.0-beta.159"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="image-workbench" id="image-workbench"
+     data-source="{sourceUrl}"
+     data-return-url="{returnUrl}"
+     data-target="{target}"
+     data-filename="{fileName}"
+     data-extension="{extension}"
+     data-config="{config}">
+    <section class="image-workbench__editor" id="image-workbench-editor" aria-label="Bildeditor"></section>
+    <f:if condition="{aiEnabled}">
+        <aside class="image-workbench__ai" aria-labelledby="image-workbench-ai-title">
+            <p class="image-workbench__eyebrow">nr-llm</p>
+            <h2 id="image-workbench-ai-title">KI-Alternative</h2>
+            <p>Ein neues Bild wird neben dem Original gespeichert. Modell, Budget und Kosten kommen aus der zentralen nr-llm-Konfiguration.</p>
+            <label for="image-workbench-prompt">Bildbeschreibung</label>
+            <textarea id="image-workbench-prompt" rows="8" maxlength="8000" placeholder="Beschreibe Motiv, Bildsprache, Perspektive und gewünschte Wirkung."></textarea>
+            <button type="button" id="image-workbench-generate">Bild kostenpflichtig erzeugen</button>
+            <p class="image-workbench__cost">Keine versteckten Inklusivkosten: Der tatsächliche KI-Verbrauch erscheint in nr-llm Analytics.</p>
+            <div id="image-workbench-status" role="status" aria-live="polite"></div>
+        </aside>
+    </f:if>
+</div>
+</html>

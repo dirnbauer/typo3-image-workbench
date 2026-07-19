@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Image Workbench">
+  <rect width="64" height="64" fill="#11332f"/>
+  <path d="M12 14h40v36H12z" fill="#f4f7f6"/>
+  <path d="M17 43l10-12 7 8 6-7 7 11H17z" fill="#2caa91"/>
+  <circle cx="41" cy="24" r="5" fill="#51e0c1"/>
+  <path d="M50 10v10M45 15h10" stroke="#51e0c1" stroke-width="3"/>
+</svg>

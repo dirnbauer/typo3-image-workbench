@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Webconsulting\ImageWorkbench\:
+    resource: '../Classes/*'
+
+  Webconsulting\ImageWorkbench\ContextMenu\ImageWorkbenchItemProvider:
+    tags:
+      - name: backend.contextmenu.itemprovider
