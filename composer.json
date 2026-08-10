@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": ">=8.3 <8.5",
+    "php": ">=8.3 <8.6",
     "netresearch/nr-llm": "^0.16.1",
     "typo3/cms-backend": "^14.3",
     "typo3/cms-filelist": "^14.3"
