@@ -11,7 +11,7 @@
   ],
   "require": {
     "php": ">=8.3 <8.5",
-    "netresearch/nr-llm": "^0.16.1",
+    "netresearch/nr-llm": "^0.34",
     "typo3/cms-backend": "^14.3",
     "typo3/cms-filelist": "^14.3"
   },
@@ -32,6 +32,13 @@
       "@composer validate --strict --no-check-lock",
       "@php -l ext_emconf.php"
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "typo3/class-alias-loader": true,
+      "typo3/cms-composer-installers": true
+    },
+    "sort-packages": true
   },
   "extra": {
     "typo3/cms": {
