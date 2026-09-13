@@ -1,48 +1,69 @@
 {
-  "name": "webconsulting/image-workbench",
-  "description": "Square, FAL-safe image editing and nr-llm image generation in the TYPO3 v14 backend.",
-  "license": "GPL-2.0-or-later",
-  "type": "typo3-cms-extension",
-  "authors": [
-    {
-      "name": "webconsulting.at",
-      "homepage": "https://www.webconsulting.at"
-    }
-  ],
-  "require": {
-    "php": ">=8.3 <8.5",
-    "netresearch/nr-llm": "^0.34",
-    "typo3/cms-backend": "^14.3",
-    "typo3/cms-filelist": "^14.3"
-  },
-  "autoload": {
-    "psr-4": {
-      "Webconsulting\\ImageWorkbench\\": "Classes/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Webconsulting\\ImageWorkbench\\Tests\\": "Tests/"
-    }
-  },
-  "scripts": {
-    "assets:install": "cd Build && npm ci",
-    "assets:build": "cd Build && npm run build",
-    "check": [
-      "@composer validate --strict --no-check-lock",
-      "@php -l ext_emconf.php"
-    ]
-  },
-  "config": {
-    "allow-plugins": {
-      "typo3/class-alias-loader": true,
-      "typo3/cms-composer-installers": true
+    "name": "webconsulting/image-workbench",
+    "description": "Square, FAL-safe image editing and nr-llm image generation in the TYPO3 v14 backend.",
+    "license": "GPL-2.0-or-later",
+    "type": "typo3-cms-extension",
+    "authors": [
+        {
+            "name": "webconsulting.at",
+            "homepage": "https://www.webconsulting.at"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "ext-gd": "*",
+        "netresearch/nr-llm": "^0.34",
+        "typo3/cms-backend": "^14.3.7",
+        "typo3/cms-core": "^14.3.7",
+        "typo3/cms-filelist": "^14.3.7"
     },
-    "sort-packages": true
-  },
-  "extra": {
-    "typo3/cms": {
-      "extension-key": "image_workbench"
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpunit/phpunit": "^12.4 || ^13.0",
+        "saschaegerer/phpstan-typo3": "^3.0",
+        "typo3/coding-standards": "^0.9",
+        "typo3/testing-framework": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webconsulting\\ImageWorkbench\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webconsulting\\ImageWorkbench\\Tests\\": "Tests/"
+        }
+    },
+    "scripts": {
+        "assets:build": "cd Build && npm run build",
+        "assets:install": "cd Build && npm ci",
+        "ci": [
+            "@ci:cgl",
+            "@ci:phpstan",
+            "@ci:tests:unit",
+            "@ci:tests:functional"
+        ],
+        "ci:cgl": "php-cs-fixer fix --config .php-cs-fixer.dist.php --diff --verbose",
+        "ci:phpstan": "phpstan analyse --configuration phpstan.neon --no-progress",
+        "ci:tests:functional": "phpunit --configuration Build/phpunit/FunctionalTests.xml",
+        "ci:tests:unit": "phpunit --configuration Build/phpunit/UnitTests.xml"
+    },
+    "config": {
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "image_workbench",
+            "version": "0.2.0",
+            "web-dir": ".Build/public",
+            "Package": {
+                "providesPackages": []
+            }
+        }
     }
-  }
 }
