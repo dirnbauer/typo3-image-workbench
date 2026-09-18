@@ -12,7 +12,7 @@
     "require": {
         "php": "^8.4",
         "ext-gd": "*",
-        "netresearch/nr-llm": "^0.34",
+        "netresearch/nr-llm": "^0.34 || ^0.35",
         "typo3/cms-backend": "^14.3.7",
         "typo3/cms-core": "^14.3.7",
         "typo3/cms-filelist": "^14.3.7"
@@ -59,7 +59,7 @@
     "extra": {
         "typo3/cms": {
             "extension-key": "image_workbench",
-            "version": "0.2.0",
+            "version": "0.2.1",
             "web-dir": ".Build/public",
             "Package": {
                 "providesPackages": []
