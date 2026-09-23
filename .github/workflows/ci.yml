@@ -9,18 +9,19 @@ on:
 permissions:
   contents: read
 
-env:
-  PHP_VERSION: '8.4'
-
 jobs:
   lint:
-    name: Lint
+    name: Lint (PHP ${{ matrix.php-version }})
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.4', '8.5']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.PHP_VERSION }}
+          php-version: ${{ matrix.php-version }}
           coverage: none
       - name: Validate composer.json
         run: composer validate --strict
@@ -30,15 +31,19 @@ jobs:
         run: composer audit
       - name: PHP syntax
         run: find Classes Configuration Tests ext_emconf.php -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: XLIFF well-formed
+        run: |
+          sudo apt-get install -y --no-install-recommends libxml2-utils >/dev/null
+          xmllint --noout Resources/Private/Language/*.xlf
 
   cgl:
     name: Coding standards
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.PHP_VERSION }}
+          php-version: '8.4'
           coverage: none
       - run: composer install --no-progress --no-interaction
       - run: composer ci:cgl -- --dry-run
@@ -47,10 +52,10 @@ jobs:
     name: PHPStan
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.PHP_VERSION }}
+          php-version: '8.4'
           coverage: none
           ini-values: memory_limit=1G
       - run: composer install --no-progress --no-interaction
@@ -59,26 +64,30 @@ jobs:
   unit:
     name: Unit tests (PHP ${{ matrix.php-version }})
     runs-on: ubuntu-24.04
-    continue-on-error: ${{ matrix.php-version == '8.5' }}
     strategy:
       fail-fast: false
       matrix:
         php-version: ['8.4', '8.5']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
+          extensions: gd
           coverage: none
       - run: composer install --no-progress --no-interaction
       - run: composer ci:tests:unit
 
   functional:
-    name: Functional tests (MariaDB)
+    name: Functional tests (PHP ${{ matrix.php-version }}, MariaDB)
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.4', '8.5']
     services:
       mariadb:
-        image: mariadb:10.11
+        image: mariadb:11.4
         env:
           MARIADB_ROOT_PASSWORD: root
           MARIADB_DATABASE: typo3_ci
@@ -97,10 +106,11 @@ jobs:
       typo3DatabaseUsername: root
       typo3DatabasePassword: root
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.PHP_VERSION }}
+          php-version: ${{ matrix.php-version }}
+          extensions: gd, intl, mysqli
           coverage: none
       - run: composer install --no-progress --no-interaction
       - run: composer ci:tests:functional
@@ -109,20 +119,17 @@ jobs:
     name: Editor bundle
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version: '24'
           cache: npm
           cache-dependency-path: Build/package-lock.json
       - name: Install asset toolchain
         run: npm ci
         working-directory: Build
-      - name: Rebuild the editor bundle
+      - name: Rebuild the editor bundle (fails when the editor labels drift from the XLIFF file)
         run: npm run build
         working-directory: Build
-      - name: The bundle must exist and be non-empty
-        run: |
-          test -s Resources/Public/JavaScript/Vendor/filerobot-image-editor.bundle.js
-          test -s Resources/Public/JavaScript/Vendor/filerobot-image-editor.bundle.css
-          grep -q 'border-radius:0' Resources/Public/JavaScript/Vendor/filerobot-image-editor.bundle.css
+      - name: The committed bundle must match the rebuilt one
+        run: git diff --exit-code --stat -- Resources/Public/JavaScript/Vendor
