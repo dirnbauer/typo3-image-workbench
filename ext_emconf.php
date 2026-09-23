@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Image Workbench',
-    'description' => 'Edit images in the TYPO3 v14 backend and generate alternatives through nr-llm with central usage and cost tracking.',
+    'description' => 'Image editing and nr-llm image generation in the TYPO3 v14 file list: FAL-safe, native backend UI, light and dark.',
     'category' => 'be',
     'author' => 'webconsulting.at',
     'author_email' => 'office@webconsulting.at',
     'state' => 'beta',
-    'version' => '0.2.1',
+    'version' => '0.3.0',
     'constraints' => [
         'depends' => [
             'php' => '8.4.0-8.99.99',

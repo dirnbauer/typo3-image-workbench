@@ -1,14 +1,30 @@
 {
     "name": "webconsulting/image-workbench",
-    "description": "Square, FAL-safe image editing and nr-llm image generation in the TYPO3 v14 backend.",
+    "description": "Image editing and nr-llm image generation in the TYPO3 v14 file list: FAL-safe, native backend UI, light and dark.",
     "license": "GPL-2.0-or-later",
     "type": "typo3-cms-extension",
+    "keywords": [
+        "TYPO3",
+        "extension",
+        "image editor",
+        "filelist",
+        "FAL",
+        "AI",
+        "image generation",
+        "nr-llm"
+    ],
+    "homepage": "https://github.com/dirnbauer/typo3-image-workbench",
     "authors": [
         {
             "name": "webconsulting.at",
             "homepage": "https://www.webconsulting.at"
         }
     ],
+    "support": {
+        "issues": "https://github.com/dirnbauer/typo3-image-workbench/issues",
+        "source": "https://github.com/dirnbauer/typo3-image-workbench",
+        "docs": "https://github.com/dirnbauer/typo3-image-workbench/tree/main/Documentation"
+    },
     "require": {
         "php": "^8.4",
         "ext-gd": "*",
@@ -59,7 +75,7 @@
     "extra": {
         "typo3/cms": {
             "extension-key": "image_workbench",
-            "version": "0.2.1",
+            "version": "0.3.0",
             "web-dir": ".Build/public",
             "Package": {
                 "providesPackages": []

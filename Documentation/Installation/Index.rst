@@ -28,30 +28,31 @@ Install with Composer
     vendor/bin/typo3 extension:setup
 
 The editor bundle is committed, so there is nothing to build for a normal
-installation.
+installation. The extension adds no database tables and no site set.
 
 ..  _installation-llm:
 
 The nr-llm image configuration
 ==============================
 
-AI generation needs an active nr-llm image configuration. By default the
-extension looks for the identifier ``image-workbench``; a different one
-can be selected per backend group, see
-:ref:`Configuration <configuration>`.
+AI generation needs an nr-llm provider with an API key and an active
+image configuration. By default the extension looks for the identifier
+``image-workbench``; a different one can be selected per backend group,
+see :ref:`Configuration <configuration>`.
 
-Without such a configuration, manual editing keeps working — only the
-generation panel fails, with the provider's message.
+Until nr-llm has an API key, editors do not see the generation panel at
+all, and administrators see a short hint in its place. Manual editing
+works either way.
 
 ..  _installation-verify:
 
 Verify
 ======
 
-Open the file list, right-click a JPEG, PNG or WebP file in a folder you
-may write to, and pick :guilabel:`Image Workbench`. The editor opens
-full-page with the file loaded.
+Open the :guilabel:`Media` module, open the actions of a JPEG, PNG or
+WebP file in a folder you may write to (or right-click it), and pick
+:guilabel:`Edit image`. The editor opens full-page with the file loaded.
 
 If the entry does not appear, check in this order: the file extension is
-one of the four supported ones, the backend user may write the folder,
-and ``options.imageWorkbench.enable`` is not switched off for the group.
+one of the four supported ones, the backend user may write the file, and
+``options.imageWorkbench.enable`` is not switched off for the group.

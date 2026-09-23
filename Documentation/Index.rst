@@ -37,8 +37,11 @@ from a prompt through :composer:`netresearch/nr-llm`, with the provider,
 budget and cost tracking staying where they belong: in the central
 nr-llm configuration.
 
-Editors never enter provider credentials here, and the original image is
-never sent to an LLM.
+It looks and behaves like the rest of the backend: saving lives in the
+document header, the editor follows the backend language and the light
+or dark colour scheme, and unsaved edits are protected the way FormEngine
+protects them. Editors never enter provider credentials here, and the
+original image is never sent to an LLM.
 
 ----
 
@@ -73,8 +76,8 @@ never sent to an LLM.
 
     ..  card:: Developer reference
 
-        The four routes, the format conversion, privacy and billing, and
-        the test suites.
+        The routes, the services, labels and theming, privacy and
+        billing, the editor bundle and the test suites.
 
         ..  card-footer:: :ref:`Read the reference <developer>`
             :button-style: btn btn-secondary stretched-link

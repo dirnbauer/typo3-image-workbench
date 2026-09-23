@@ -9,9 +9,11 @@
 
 A full-page, non-destructive image editor in the TYPO3 v14 file list. Editors crop, resize, adjust, filter and annotate JPEG, PNG and WebP files without leaving the backend — and can generate a new visual from a prompt through [`netresearch/nr-llm`](https://packagist.org/packages/netresearch/nr-llm), with the model, budget and cost tracking staying in the central nr-llm configuration.
 
-Manual editing uses the open-source [Filerobot Image Editor](https://github.com/scaleflex/filerobot-image-editor), bundled and committed, running entirely in the browser. Saving defaults to a new file next to the original; overwriting takes an explicit confirmation and purges the processed-file cache. Whatever the canvas produced is re-encoded to match the extension it is written under, so a file's contents and its name never disagree.
+It is built like a Core module: **Save as copy** and **Overwrite original** sit in the document header, the editor follows the backend language (English and German ship with it) and the light or dark colour scheme, and unsaved edits are protected against Close, the module menu and the page tree the way FormEngine protects a record.
 
-Deliberately not done: the image itself is never sent to an LLM (only the prompt is), editors never enter provider credentials, nothing bypasses FAL permissions, and there are no v12/v13 compatibility layers.
+Manual editing uses the open-source [Filerobot Image Editor](https://github.com/scaleflex/filerobot-image-editor), bundled as one ES module and committed, running entirely in the browser. Saving defaults to a new file next to the original; overwriting takes a confirmation and purges the processed-file cache. Whatever the canvas produced is re-encoded to match the extension it is written under, so a file's contents and its name never disagree.
+
+Deliberately not done: the image itself is never sent to an LLM (only the prompt is), editors never enter provider credentials, the page never chooses which nr-llm configuration pays, nothing bypasses FAL, the editor never calls a third-party server, and there are no v12/v13 compatibility layers.
 
 Georg Ringer's [image-editor](https://github.com/georgringer/image-editor) established the FAL and context-menu approach this builds its interaction ideas on. This is a separate implementation that narrows support to v14 and adds centrally governed AI generation.
 
@@ -28,11 +30,11 @@ composer require webconsulting/image-workbench
 vendor/bin/typo3 extension:setup
 ```
 
-The editor bundle is committed, so a normal installation needs no Node toolchain. For AI generation, create an active nr-llm image configuration with the identifier `image-workbench` — or point a backend group at a different one.
+The editor bundle is committed, so a normal installation needs no Node toolchain. No database tables, no site set. For AI generation, store the provider API key in nr-llm and create an active nr-llm image configuration with the identifier `image-workbench` — or point a backend group at a different one.
 
 ## Configure
 
-Everything is user TSconfig, so every option can differ per backend group:
+Everything is user TSconfig, read on the server for every request, so every option can differ per backend group:
 
 ```typoscript
 options.imageWorkbench.enable = 1
@@ -42,15 +44,18 @@ options.imageWorkbench.cropPresets = Story=9:16, Social=1:1, Wide=16:9
 options.imageWorkbench.ai.enable = 1
 options.imageWorkbench.ai.configuration = image-workbench
 options.imageWorkbench.ai.defaultSize = 1024x1024
+
+# Show "Edit image" among the always-visible row actions of the file list
+options.file_list.primaryActions = view,metadata,translations,delete,imageWorkbench
 ```
 
-None of it widens access. The context-menu entry, the editor route and every write are gated by FAL: the file must be readable, its folder writable, and the extension one of the four supported ones.
+None of it widens access. The file-list action, the context-menu entry, the editor route and every write are gated by FAL: the file must live in a real storage, be writable (or, for a copy, its folder), and have one of the four supported extensions.
 
 ## Use
 
-Right-click an image in **File > Filelist** and choose **Image Workbench**. Edit, then save as a copy (default) or overwrite (confirmed). The panel beside the editor takes a prompt of 10–8,000 characters and saves the generated image as a **new PNG** next to the source — generation never overwrites.
+In the **Media** module, pick **Edit image** among the actions of an image row or from its context menu. Edit, then **Save as copy** (asks for a name) or **Overwrite original** (asks for confirmation) in the document header. The panel beside the editor takes a description of 10–8,000 characters and a size the configured model supports, and saves the generated image as a **new PNG** next to the source — generation never overwrites. Every generated file is listed below the form with a link that opens it in the workbench.
 
-The `configuration` identifier travels with the request, so nr-llm books provider usage and cost against it, and the response names the model that ran.
+nr-llm books provider usage and cost against the configuration and the backend user, and enforces that user's budget.
 
 ## Develop
 
@@ -62,15 +67,15 @@ composer ci:tests:functional  # SQLite, no database server needed
 composer ci:phpstan           # level 8, no baseline
 composer ci:cgl -- --dry-run
 composer assets:install       # npm ci in Build/
-composer assets:build         # rebuild the Filerobot bundle
+composer assets:build         # rebuild the editor bundle
 docker run --rm -v $PWD:/project ghcr.io/typo3-documentation/render-guides:latest --config=Documentation
 ```
 
-The asset build also rewrites `border-radius:4px` to `border-radius:0` in the vendor CSS — the squared corners the rest of the house style uses. CI rebuilds the bundle with the pinned toolchain and checks that patch survived.
+The asset build fails when the editor's label list and `Resources/Private/Language/locallang_editor.xlf` drift apart. CI rebuilds the bundle from the lock file and requires it to match the committed one.
 
 ## Docs
 
-Full manual in [`Documentation/`](Documentation/Index.rst): what it does and does not do, installation and the nr-llm configuration, every TSconfig option, the editor and generation workflow with its failure messages, and a developer reference covering the four routes, the format conversion, privacy and billing, and the test suites.
+Full manual in [`Documentation/`](Documentation/Index.rst): what it does and does not do, installation and the nr-llm configuration, every TSconfig option, the editor and generation workflow with its failure messages, and a developer reference covering the routes, services, labels and theming, privacy and billing, and the test suites.
 
 ## License
 
