@@ -79,13 +79,25 @@ final class ImageFormatConverterTest extends TestCase
     }
 
     #[Test]
-    public function anUnknownExtensionLeavesTheDataAlone(): void
+    public function anUnknownTargetExtensionIsRefused(): void
     {
-        $png = $this->image('png');
+        // .gif and .svg never reach the editor; writing a PNG under either
+        // name would be exactly the mismatch this class exists to prevent.
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionCode(1752910106);
 
-        // .gif and .svg never reach the editor; nothing is decided about them here.
-        self::assertSame($png, $this->converter->toExtension($png, 'gif'));
-        self::assertSame($png, $this->converter->toExtension($png, ''));
+        $this->converter->toExtension($this->image('png'), 'svg');
+    }
+
+    #[Test]
+    public function onlyTheFourEditableFormatsAreSupported(): void
+    {
+        foreach (['jpg', 'JPEG', 'png', 'WebP'] as $extension) {
+            self::assertTrue($this->converter->supports($extension), $extension);
+        }
+        foreach (['gif', 'svg', 'html', 'php', ''] as $extension) {
+            self::assertFalse($this->converter->supports($extension), $extension);
+        }
     }
 
     #[Test]
@@ -95,10 +107,13 @@ final class ImageFormatConverterTest extends TestCase
         self::assertInstanceOf(\GdImage::class, $source);
         imagealphablending($source, false);
         imagesavealpha($source, true);
-        imagefill($source, 0, 0, (int)imagecolorallocatealpha($source, 255, 0, 0, 127));
+        $transparent = imagecolorallocatealpha($source, 255, 0, 0, 127);
+        self::assertIsInt($transparent);
+        imagefill($source, 0, 0, $transparent);
         ob_start();
         imagepng($source);
-        $transparentPng = (string)ob_get_clean();
+        $transparentPng = ob_get_clean();
+        self::assertIsString($transparentPng);
 
         // A PNG that is already a PNG is returned untouched, so force the
         // decode/encode path by going through WebP and back.
@@ -161,7 +176,9 @@ final class ImageFormatConverterTest extends TestCase
     {
         $image = imagecreatetruecolor(8, 6);
         self::assertInstanceOf(\GdImage::class, $image);
-        imagefill($image, 0, 0, (int)imagecolorallocate($image, 12, 34, 56));
+        $color = imagecolorallocate($image, 12, 34, 56);
+        self::assertIsInt($color);
+        imagefill($image, 0, 0, $color);
 
         ob_start();
         match ($format) {
@@ -169,8 +186,8 @@ final class ImageFormatConverterTest extends TestCase
             'webp' => imagewebp($image),
             default => imagejpeg($image, null, 90),
         };
-        $binary = (string)ob_get_clean();
-
+        $binary = ob_get_clean();
+        self::assertIsString($binary);
         self::assertNotSame('', $binary);
 
         return $binary;
@@ -178,6 +195,9 @@ final class ImageFormatConverterTest extends TestCase
 
     private function mimeOf(string $binary): string
     {
-        return (string)(new \finfo(FILEINFO_MIME_TYPE))->buffer($binary);
+        $mime = new \finfo(FILEINFO_MIME_TYPE)->buffer($binary);
+        self::assertIsString($mime);
+
+        return $mime;
     }
 }

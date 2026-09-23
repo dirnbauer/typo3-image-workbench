@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
+  <file id="messages">
+    <unit id="editor.title">
+      <segment state="final">
+        <source>Image Workbench</source>
+        <target>Image Workbench</target>
+      </segment>
+    </unit>
+    <unit id="editor.heading">
+      <segment state="final">
+        <source>Edit {name}</source>
+        <target>{name} bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="editor.region">
+      <segment state="final">
+        <source>Image editor</source>
+        <target>Bildeditor</target>
+      </segment>
+    </unit>
+    <unit id="editor.loading">
+      <segment state="final">
+        <source>Loading the image editor…</source>
+        <target>Der Bildeditor wird geladen …</target>
+      </segment>
+    </unit>
+    <unit id="editor.loadFailed">
+      <segment state="final">
+        <source>The image editor could not be started. Reload the page to try again.</source>
+        <target>Der Bildeditor konnte nicht gestartet werden. Laden Sie die Seite neu, um es noch einmal zu versuchen.</target>
+      </segment>
+    </unit>
+    <unit id="action.edit">
+      <segment state="final">
+        <source>Edit image</source>
+        <target>Bild bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="action.saveCopy">
+      <segment state="final">
+        <source>Save as copy</source>
+        <target>Als Kopie speichern</target>
+      </segment>
+    </unit>
+    <unit id="action.overwrite">
+      <segment state="final">
+        <source>Overwrite original</source>
+        <target>Original überschreiben</target>
+      </segment>
+    </unit>
+    <unit id="save.dialog.title">
+      <segment state="final">
+        <source>Save as copy</source>
+        <target>Als Kopie speichern</target>
+      </segment>
+    </unit>
+    <unit id="save.dialog.filename">
+      <segment state="final">
+        <source>File name</source>
+        <target>Dateiname</target>
+      </segment>
+    </unit>
+    <unit id="save.dialog.help">
+      <segment state="final">
+        <source>The copy is stored in the same folder as the original. An existing file is never replaced; a number is added instead.</source>
+        <target>Die Kopie wird im selben Ordner wie das Original gespeichert. Eine vorhandene Datei wird nie ersetzt, stattdessen wird eine Nummer angehängt.</target>
+      </segment>
+    </unit>
+    <unit id="save.dialog.submit">
+      <segment state="final">
+        <source>Save copy</source>
+        <target>Kopie speichern</target>
+      </segment>
+    </unit>
+    <unit id="save.dialog.required">
+      <segment state="final">
+        <source>Enter a file name.</source>
+        <target>Geben Sie einen Dateinamen ein.</target>
+      </segment>
+    </unit>
+    <unit id="dialog.cancel">
+      <segment state="final">
+        <source>Cancel</source>
+        <target>Abbrechen</target>
+      </segment>
+    </unit>
+    <unit id="overwrite.dialog.title">
+      <segment state="final">
+        <source>Overwrite the original?</source>
+        <target>Original überschreiben?</target>
+      </segment>
+    </unit>
+    <unit id="overwrite.dialog.message">
+      <segment state="final">
+        <source>{name} is replaced by the edited image and its thumbnails are regenerated. Every page that shows the file shows the new version. This cannot be undone.</source>
+        <target>{name} wird durch das bearbeitete Bild ersetzt und seine Vorschaubilder werden neu erzeugt. Jede Seite, die die Datei zeigt, zeigt danach die neue Version. Das lässt sich nicht rückgängig machen.</target>
+      </segment>
+    </unit>
+    <unit id="overwrite.dialog.submit">
+      <segment state="final">
+        <source>Overwrite</source>
+        <target>Überschreiben</target>
+      </segment>
+    </unit>
+    <unit id="close.dialog.title">
+      <segment state="final">
+        <source>Discard your changes?</source>
+        <target>Änderungen verwerfen?</target>
+      </segment>
+    </unit>
+    <unit id="close.dialog.message">
+      <segment state="final">
+        <source>The edits you made since the last save will be lost.</source>
+        <target>Die Änderungen seit dem letzten Speichern gehen verloren.</target>
+      </segment>
+    </unit>
+    <unit id="close.dialog.discard">
+      <segment state="final">
+        <source>Discard changes</source>
+        <target>Änderungen verwerfen</target>
+      </segment>
+    </unit>
+    <unit id="close.dialog.keep">
+      <segment state="final">
+        <source>Keep editing</source>
+        <target>Weiter bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="save.copied">
+      <segment state="final">
+        <source>Saved as {name}.</source>
+        <target>Als {name} gespeichert.</target>
+      </segment>
+    </unit>
+    <unit id="save.overwritten">
+      <segment state="final">
+        <source>{name} was overwritten.</source>
+        <target>{name} wurde überschrieben.</target>
+      </segment>
+    </unit>
+    <unit id="save.success.title">
+      <segment state="final">
+        <source>Image saved</source>
+        <target>Bild gespeichert</target>
+      </segment>
+    </unit>
+    <unit id="save.failure.title">
+      <segment state="final">
+        <source>The image could not be saved</source>
+        <target>Das Bild konnte nicht gespeichert werden</target>
+      </segment>
+    </unit>
+    <unit id="save.openCopy">
+      <segment state="final">
+        <source>Edit the copy</source>
+        <target>Kopie bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="unavailable.title">
+      <segment state="final">
+        <source>This image cannot be edited</source>
+        <target>Dieses Bild kann nicht bearbeitet werden</target>
+      </segment>
+    </unit>
+    <unit id="unavailable.notFound">
+      <segment state="final">
+        <source>The file does not exist any more, or it is not a JPEG, PNG or WebP image.</source>
+        <target>Die Datei existiert nicht mehr oder ist kein JPEG-, PNG- oder WebP-Bild.</target>
+      </segment>
+    </unit>
+    <unit id="unavailable.accessDenied">
+      <segment state="final">
+        <source>You are not allowed to change this file.</source>
+        <target>Sie dürfen diese Datei nicht ändern.</target>
+      </segment>
+    </unit>
+    <unit id="ai.title">
+      <segment state="final">
+        <source>Generate with AI</source>
+        <target>Mit KI erzeugen</target>
+      </segment>
+    </unit>
+    <unit id="ai.subtitle">
+      <segment state="final">
+        <source>Creates a new PNG next to the original</source>
+        <target>Erzeugt ein neues PNG neben dem Original</target>
+      </segment>
+    </unit>
+    <unit id="ai.prompt">
+      <segment state="final">
+        <source>Describe the image</source>
+        <target>Bild beschreiben</target>
+      </segment>
+    </unit>
+    <unit id="ai.prompt.help">
+      <segment state="final">
+        <source>Subject, style, perspective and mood, between {min} and {max} characters.</source>
+        <target>Motiv, Stil, Perspektive und Stimmung, zwischen {min} und {max} Zeichen.</target>
+      </segment>
+    </unit>
+    <unit id="ai.size">
+      <segment state="final">
+        <source>Size</source>
+        <target>Größe</target>
+      </segment>
+    </unit>
+    <unit id="ai.size.square">
+      <segment state="final">
+        <source>Square, {width} × {height}</source>
+        <target>Quadratisch, {width} × {height}</target>
+      </segment>
+    </unit>
+    <unit id="ai.size.landscape">
+      <segment state="final">
+        <source>Landscape, {width} × {height}</source>
+        <target>Querformat, {width} × {height}</target>
+      </segment>
+    </unit>
+    <unit id="ai.size.portrait">
+      <segment state="final">
+        <source>Portrait, {width} × {height}</source>
+        <target>Hochformat, {width} × {height}</target>
+      </segment>
+    </unit>
+    <unit id="ai.size.auto">
+      <segment state="final">
+        <source>Automatic, the model decides</source>
+        <target>Automatisch, das Modell entscheidet</target>
+      </segment>
+    </unit>
+    <unit id="ai.generate">
+      <segment state="final">
+        <source>Generate image</source>
+        <target>Bild erzeugen</target>
+      </segment>
+    </unit>
+    <unit id="ai.generating">
+      <segment state="final">
+        <source>Generating the image. This can take up to a minute…</source>
+        <target>Das Bild wird erzeugt. Das kann bis zu einer Minute dauern …</target>
+      </segment>
+    </unit>
+    <unit id="ai.generated">
+      <segment state="final">
+        <source>{name} was created with {model}.</source>
+        <target>{name} wurde mit {model} erzeugt.</target>
+      </segment>
+    </unit>
+    <unit id="ai.billing">
+      <segment state="final">
+        <source>Usage and cost are booked in nr-llm under the configuration “{configuration}” (model {model}).</source>
+        <target>Verbrauch und Kosten werden in nr-llm unter der Konfiguration „{configuration}“ gebucht (Modell {model}).</target>
+      </segment>
+    </unit>
+    <unit id="ai.results">
+      <segment state="final">
+        <source>Generated on this page</source>
+        <target>Auf dieser Seite erzeugt</target>
+      </segment>
+    </unit>
+    <unit id="ai.openInWorkbench">
+      <segment state="final">
+        <source>Edit {name}</source>
+        <target>{name} bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="ai.success.title">
+      <segment state="final">
+        <source>Image generated</source>
+        <target>Bild erzeugt</target>
+      </segment>
+    </unit>
+    <unit id="ai.failure.title">
+      <segment state="final">
+        <source>The image could not be generated</source>
+        <target>Das Bild konnte nicht erzeugt werden</target>
+      </segment>
+    </unit>
+    <unit id="ai.unavailable.title">
+      <segment state="final">
+        <source>AI generation is not set up</source>
+        <target>KI-Erzeugung ist nicht eingerichtet</target>
+      </segment>
+    </unit>
+    <unit id="ai.unavailable.message">
+      <segment state="final">
+        <source>Store an API key for the image provider in nr-llm, then reload this page. Editors do not see this panel until then.</source>
+        <target>Hinterlegen Sie in nr-llm einen API-Schlüssel für den Bildanbieter und laden Sie die Seite neu. Bis dahin sehen Redakteure dieses Panel nicht.</target>
+      </segment>
+    </unit>
+    <unit id="error.accessDenied">
+      <segment state="final">
+        <source>You are not allowed to change this file.</source>
+        <target>Sie dürfen diese Datei nicht ändern.</target>
+      </segment>
+    </unit>
+    <unit id="error.notFound">
+      <segment state="final">
+        <source>The image does not exist, or it is not a JPEG, PNG or WebP file.</source>
+        <target>Das Bild existiert nicht oder ist keine JPEG-, PNG- oder WebP-Datei.</target>
+      </segment>
+    </unit>
+    <unit id="error.invalidImage">
+      <segment state="final">
+        <source>The editor sent no usable image data.</source>
+        <target>Der Editor hat keine verwendbaren Bilddaten gesendet.</target>
+      </segment>
+    </unit>
+    <unit id="error.saveFailed">
+      <segment state="final">
+        <source>Saving the image failed.</source>
+        <target>Das Speichern des Bildes ist fehlgeschlagen.</target>
+      </segment>
+    </unit>
+    <unit id="error.aiDisabled">
+      <segment state="final">
+        <source>AI generation is switched off for your backend group.</source>
+        <target>KI-Erzeugung ist für Ihre Backend-Gruppe ausgeschaltet.</target>
+      </segment>
+    </unit>
+    <unit id="error.aiUnavailable">
+      <segment state="final">
+        <source>AI generation is not available right now.</source>
+        <target>KI-Erzeugung ist gerade nicht verfügbar.</target>
+      </segment>
+    </unit>
+    <unit id="error.promptLength">
+      <segment state="final">
+        <source>The description must contain between {min} and {max} characters.</source>
+        <target>Die Beschreibung muss zwischen {min} und {max} Zeichen enthalten.</target>
+      </segment>
+    </unit>
+    <unit id="error.size">
+      <segment state="final">
+        <source>This size is not available for the configured model.</source>
+        <target>Diese Größe ist für das konfigurierte Modell nicht verfügbar.</target>
+      </segment>
+    </unit>
+    <unit id="error.budgetExceeded">
+      <segment state="final">
+        <source>Your AI budget is used up.</source>
+        <target>Ihr KI-Budget ist aufgebraucht.</target>
+      </segment>
+    </unit>
+    <unit id="error.promptRejected">
+      <segment state="final">
+        <source>The description was rejected by the content policy.</source>
+        <target>Die Beschreibung wurde von der Inhaltsrichtlinie abgelehnt.</target>
+      </segment>
+    </unit>
+    <unit id="error.generationFailed">
+      <segment state="final">
+        <source>The image could not be generated.</source>
+        <target>Das Bild konnte nicht erzeugt werden.</target>
+      </segment>
+    </unit>
+    <unit id="error.network">
+      <segment state="final">
+        <source>The server did not answer. Check your connection and try again.</source>
+        <target>Der Server hat nicht geantwortet. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

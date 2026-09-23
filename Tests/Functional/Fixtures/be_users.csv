@@ -1,3 +1,6 @@
-"be_users",,,,,
-,"uid","pid","username","admin","disable","deleted"
-,1,0,"workbench-admin",1,0,0
+"be_users",,,,,,,
+,"uid","pid","username","admin","disable","deleted","TSconfig","lang"
+,1,0,"workbench-admin",1,0,0,"","default"
+,2,0,"workbench-switched-off",1,0,0,"options.imageWorkbench.enable = 0","default"
+,3,0,"workbench-no-ai",1,0,0,"options.imageWorkbench.ai.enable = 0","default"
+,4,0,"workbench-german",1,0,0,"","de"

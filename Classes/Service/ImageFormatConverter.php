@@ -20,9 +20,8 @@ namespace Webconsulting\ImageWorkbench\Service;
 final readonly class ImageFormatConverter
 {
     /**
-     * The raster formats the workbench edits. An extension outside this
-     * list is passed through untouched — the caller has already refused
-     * anything the editor cannot open.
+     * The raster formats the workbench edits. Every other extension is
+     * refused before it gets here.
      *
      * @var array<string, string>
      */
@@ -35,14 +34,23 @@ final readonly class ImageFormatConverter
 
     private const int QUALITY = 90;
 
+    public function supports(string $extension): bool
+    {
+        return array_key_exists(strtolower($extension), self::MIME_BY_EXTENSION);
+    }
+
     /**
      * @throws \RuntimeException when the data is not a supported image, or cannot be decoded or re-encoded
      */
     public function toExtension(string $binary, string $extension): string
     {
         $targetMime = self::MIME_BY_EXTENSION[strtolower($extension)] ?? null;
-        $actualMime = (new \finfo(FILEINFO_MIME_TYPE))->buffer($binary);
-        if ($targetMime === null || $actualMime === $targetMime) {
+        if ($targetMime === null) {
+            throw new \RuntimeException('Unsupported target extension "' . $extension . '".', 1752910106);
+        }
+
+        $actualMime = new \finfo(FILEINFO_MIME_TYPE)->buffer($binary);
+        if ($actualMime === $targetMime) {
             return $binary;
         }
         if (!in_array($actualMime, self::MIME_BY_EXTENSION, true)) {
@@ -57,9 +65,9 @@ final readonly class ImageFormatConverter
         // No imagedestroy(): GdImage is garbage-collected since PHP 8.0 and
         // the call is deprecated as of 8.5.
         ob_start();
-        $success = match (strtolower($extension)) {
-            'png' => $this->writePng($image),
-            'webp' => function_exists('imagewebp') && imagewebp($image, null, self::QUALITY),
+        $success = match ($targetMime) {
+            'image/png' => $this->writePng($image),
+            'image/webp' => function_exists('imagewebp') && imagewebp($image, null, self::QUALITY),
             default => imagejpeg($image, null, self::QUALITY),
         };
         $converted = ob_get_clean();

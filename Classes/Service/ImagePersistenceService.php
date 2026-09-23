@@ -16,6 +16,10 @@ final readonly class ImagePersistenceService
         private ImageFormatConverter $formatConverter,
     ) {}
 
+    /**
+     * Writes the image as a new file next to the source. An existing name is
+     * never replaced: FAL appends a counter instead.
+     */
     public function saveCopy(File $source, string $binary, string $desiredName, ?string $extension = null): File
     {
         $folder = $source->getParentFolder();
@@ -23,7 +27,7 @@ final readonly class ImagePersistenceService
             throw new \RuntimeException('No write permission for the target folder.', 1752910101);
         }
 
-        $extension ??= strtolower($source->getExtension());
+        $extension = strtolower($extension ?? $source->getExtension());
         $binary = $this->formatConverter->toExtension($binary, $extension);
         $base = pathinfo(trim($desiredName), PATHINFO_FILENAME) ?: $source->getNameWithoutExtension();
         $targetName = $source->getStorage()->sanitizeFileName($base . '.' . $extension, $folder);
@@ -44,6 +48,10 @@ final readonly class ImagePersistenceService
         }
     }
 
+    /**
+     * Replaces the file's contents and drops every processed variant, so no
+     * thumbnail or cropped rendition keeps showing the old image.
+     */
     public function overwrite(File $target, string $binary): File
     {
         if (!$target->checkActionPermission('write')) {

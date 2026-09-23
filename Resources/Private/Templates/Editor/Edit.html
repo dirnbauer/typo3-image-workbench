@@ -1,0 +1,118 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Module" />
+
+<f:section name="Content">
+    <h1><f:translate key="editor.heading" domain="image_workbench.messages" arguments="{name: file.name}" /></h1>
+
+    <div
+        class="image-workbench{f:if(condition: ai.visible, then: ' image-workbench-with-panel')}"
+        data-image-workbench
+        data-target="{file.combinedIdentifier}"
+        data-source="{sourceUrl}"
+        data-return-url="{returnUrl}"
+        data-filename="{file.name}"
+        data-extension="{file.extension -> f:format.case(mode: 'lower')}"
+        data-config="{editorConfiguration}"
+    >
+        <div
+            class="image-workbench-editor"
+            data-image-workbench-editor
+            role="region"
+            aria-label="{f:translate(key: 'editor.region', domain: 'image_workbench.messages')}"
+        >
+            <div class="image-workbench-placeholder" data-image-workbench-placeholder>
+                <core:icon identifier="spinner-circle" size="medium" />
+                <span><f:translate key="editor.loading" domain="image_workbench.messages" /></span>
+            </div>
+        </div>
+
+        <f:if condition="{ai.visible}">
+            <div class="image-workbench-panel">
+                <f:render section="AiPanel" arguments="{ai: ai}" />
+            </div>
+        </f:if>
+    </div>
+</f:section>
+
+<f:section name="AiPanel">
+    <f:if condition="{ai.available}">
+        <f:then>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <core:icon identifier="actions-wand-sparkles" size="medium" />
+                    </div>
+                    <div class="card-header-body">
+                        <h2 class="card-title"><f:translate key="ai.title" domain="image_workbench.messages" /></h2>
+                        <span class="card-subtitle"><f:translate key="ai.subtitle" domain="image_workbench.messages" /></span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form data-image-workbench-generate novalidate>
+                        <div class="form-group">
+                            <label class="form-label" for="image-workbench-prompt">
+                                <f:translate key="ai.prompt" domain="image_workbench.messages" />
+                            </label>
+                            <textarea
+                                class="form-control"
+                                id="image-workbench-prompt"
+                                name="prompt"
+                                rows="6"
+                                minlength="{ai.minLength}"
+                                maxlength="{ai.maxLength}"
+                                required
+                                aria-describedby="image-workbench-prompt-help"
+                            ></textarea>
+                            <div class="form-text" id="image-workbench-prompt-help">
+                                <f:translate key="ai.prompt.help" domain="image_workbench.messages" arguments="{min: ai.minLength, max: ai.maxLength}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="image-workbench-size">
+                                <f:translate key="ai.size" domain="image_workbench.messages" />
+                            </label>
+                            <select class="form-select" id="image-workbench-size" name="size">
+                                <f:for each="{ai.sizes}" as="size">
+                                    <f:if condition="{size.selected}">
+                                        <f:then><option value="{size.value}" selected>{size.label}</option></f:then>
+                                        <f:else><option value="{size.value}">{size.label}</option></f:else>
+                                    </f:if>
+                                </f:for>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-default">
+                            <core:icon identifier="actions-wand-sparkles" size="small" />
+                            <f:translate key="ai.generate" domain="image_workbench.messages" />
+                        </button>
+                    </form>
+
+                    <div class="image-workbench-status" role="status" aria-live="polite" data-image-workbench-status></div>
+
+                    <div class="image-workbench-results" data-image-workbench-results hidden>
+                        <h3 class="h5"><f:translate key="ai.results" domain="image_workbench.messages" /></h3>
+                        <ul class="list-group" data-image-workbench-result-list></ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="image-workbench-billing">
+                        <f:translate key="ai.billing" domain="image_workbench.messages" arguments="{configuration: ai.configuration, model: ai.model}" />
+                    </p>
+                </div>
+            </div>
+        </f:then>
+        <f:else>
+            <f:be.infobox
+                title="{f:translate(key: 'ai.unavailable.title', domain: 'image_workbench.messages')}"
+                state="{f:constant(name: 'TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO')}"
+            >
+                <p><f:translate key="ai.unavailable.message" domain="image_workbench.messages" /></p>
+            </f:be.infobox>
+        </f:else>
+    </f:if>
+</f:section>
+
+</html>

@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en">
+  <file id="editor">
+    <unit id="name">
+      <segment>
+        <source>Name</source>
+      </segment>
+    </unit>
+    <unit id="save">
+      <segment>
+        <source>Save</source>
+      </segment>
+    </unit>
+    <unit id="saveAs">
+      <segment>
+        <source>Save as</source>
+      </segment>
+    </unit>
+    <unit id="back">
+      <segment>
+        <source>Back</source>
+      </segment>
+    </unit>
+    <unit id="loading">
+      <segment>
+        <source>Loading...</source>
+      </segment>
+    </unit>
+    <unit id="resetOperations">
+      <segment>
+        <source>Reset/delete all operations</source>
+      </segment>
+    </unit>
+    <unit id="changesLoseWarningHint">
+      <segment>
+        <source>If you reset, your changes will be lost. Do you want to continue?</source>
+      </segment>
+    </unit>
+    <unit id="discardChangesWarningHint">
+      <segment>
+        <source>If you close this dialog, your last change will not be saved.</source>
+      </segment>
+    </unit>
+    <unit id="cancel">
+      <segment>
+        <source>Cancel</source>
+      </segment>
+    </unit>
+    <unit id="apply">
+      <segment>
+        <source>Apply</source>
+      </segment>
+    </unit>
+    <unit id="warning">
+      <segment>
+        <source>Warning</source>
+      </segment>
+    </unit>
+    <unit id="confirm">
+      <segment>
+        <source>Confirm</source>
+      </segment>
+    </unit>
+    <unit id="discardChanges">
+      <segment>
+        <source>Discard changes</source>
+      </segment>
+    </unit>
+    <unit id="undoTitle">
+      <segment>
+        <source>Undo last operation</source>
+      </segment>
+    </unit>
+    <unit id="redoTitle">
+      <segment>
+        <source>Redo last operation</source>
+      </segment>
+    </unit>
+    <unit id="showImageTitle">
+      <segment>
+        <source>Show original image</source>
+      </segment>
+    </unit>
+    <unit id="zoomInTitle">
+      <segment>
+        <source>Zoom in</source>
+      </segment>
+    </unit>
+    <unit id="fitTitle">
+      <segment>
+        <source>Fit</source>
+      </segment>
+    </unit>
+    <unit id="zoomOutTitle">
+      <segment>
+        <source>Zoom out</source>
+      </segment>
+    </unit>
+    <unit id="toggleZoomMenuTitle">
+      <segment>
+        <source>Toggle zoom menu</source>
+      </segment>
+    </unit>
+    <unit id="adjustTab">
+      <segment>
+        <source>Adjust</source>
+      </segment>
+    </unit>
+    <unit id="finetuneTab">
+      <segment>
+        <source>Finetune</source>
+      </segment>
+    </unit>
+    <unit id="filtersTab">
+      <segment>
+        <source>Filters</source>
+      </segment>
+    </unit>
+    <unit id="watermarkTab">
+      <segment>
+        <source>Watermark</source>
+      </segment>
+    </unit>
+    <unit id="annotateTabLabel">
+      <segment>
+        <source>Annotate</source>
+      </segment>
+    </unit>
+    <unit id="resize">
+      <segment>
+        <source>Resize</source>
+      </segment>
+    </unit>
+    <unit id="resizeTab">
+      <segment>
+        <source>Resize</source>
+      </segment>
+    </unit>
+    <unit id="imageName">
+      <segment>
+        <source>Image name</source>
+      </segment>
+    </unit>
+    <unit id="invalidImageError">
+      <segment>
+        <source>Invalid image provided.</source>
+      </segment>
+    </unit>
+    <unit id="uploadImageError">
+      <segment>
+        <source>Error while uploading the image.</source>
+      </segment>
+    </unit>
+    <unit id="areNotImages">
+      <segment>
+        <source>are not images</source>
+      </segment>
+    </unit>
+    <unit id="isNotImage">
+      <segment>
+        <source>is not an image</source>
+      </segment>
+    </unit>
+    <unit id="toBeUploaded">
+      <segment>
+        <source>to be uploaded</source>
+      </segment>
+    </unit>
+    <unit id="cropTool">
+      <segment>
+        <source>Crop</source>
+      </segment>
+    </unit>
+    <unit id="original">
+      <segment>
+        <source>Original</source>
+      </segment>
+    </unit>
+    <unit id="custom">
+      <segment>
+        <source>Custom</source>
+      </segment>
+    </unit>
+    <unit id="square">
+      <segment>
+        <source>Square</source>
+      </segment>
+    </unit>
+    <unit id="landscape">
+      <segment>
+        <source>Landscape</source>
+      </segment>
+    </unit>
+    <unit id="portrait">
+      <segment>
+        <source>Portrait</source>
+      </segment>
+    </unit>
+    <unit id="ellipse">
+      <segment>
+        <source>Ellipse</source>
+      </segment>
+    </unit>
+    <unit id="classicTv">
+      <segment>
+        <source>Classic TV</source>
+      </segment>
+    </unit>
+    <unit id="cinemascope">
+      <segment>
+        <source>Cinemascope</source>
+      </segment>
+    </unit>
+    <unit id="arrowTool">
+      <segment>
+        <source>Arrow</source>
+      </segment>
+    </unit>
+    <unit id="blurTool">
+      <segment>
+        <source>Blur</source>
+      </segment>
+    </unit>
+    <unit id="brightnessTool">
+      <segment>
+        <source>Brightness</source>
+      </segment>
+    </unit>
+    <unit id="contrastTool">
+      <segment>
+        <source>Contrast</source>
+      </segment>
+    </unit>
+    <unit id="ellipseTool">
+      <segment>
+        <source>Ellipse</source>
+      </segment>
+    </unit>
+    <unit id="unFlipX">
+      <segment>
+        <source>Un-Flip X</source>
+      </segment>
+    </unit>
+    <unit id="flipX">
+      <segment>
+        <source>Flip X</source>
+      </segment>
+    </unit>
+    <unit id="unFlipY">
+      <segment>
+        <source>Un-Flip Y</source>
+      </segment>
+    </unit>
+    <unit id="flipY">
+      <segment>
+        <source>Flip Y</source>
+      </segment>
+    </unit>
+    <unit id="hsvTool">
+      <segment>
+        <source>HSV</source>
+      </segment>
+    </unit>
+    <unit id="hue">
+      <segment>
+        <source>Hue</source>
+      </segment>
+    </unit>
+    <unit id="brightness">
+      <segment>
+        <source>Brightness</source>
+      </segment>
+    </unit>
+    <unit id="saturation">
+      <segment>
+        <source>Saturation</source>
+      </segment>
+    </unit>
+    <unit id="value">
+      <segment>
+        <source>Value</source>
+      </segment>
+    </unit>
+    <unit id="imageTool">
+      <segment>
+        <source>Image</source>
+      </segment>
+    </unit>
+    <unit id="importing">
+      <segment>
+        <source>Importing...</source>
+      </segment>
+    </unit>
+    <unit id="addImage">
+      <segment>
+        <source>Add image</source>
+      </segment>
+    </unit>
+    <unit id="uploadImage">
+      <segment>
+        <source>Upload image</source>
+      </segment>
+    </unit>
+    <unit id="fromGallery">
+      <segment>
+        <source>From gallery</source>
+      </segment>
+    </unit>
+    <unit id="lineTool">
+      <segment>
+        <source>Line</source>
+      </segment>
+    </unit>
+    <unit id="penTool">
+      <segment>
+        <source>Pen</source>
+      </segment>
+    </unit>
+    <unit id="polygonTool">
+      <segment>
+        <source>Polygon</source>
+      </segment>
+    </unit>
+    <unit id="sides">
+      <segment>
+        <source>Sides</source>
+      </segment>
+    </unit>
+    <unit id="rectangleTool">
+      <segment>
+        <source>Rectangle</source>
+      </segment>
+    </unit>
+    <unit id="cornerRadius">
+      <segment>
+        <source>Corner Radius</source>
+      </segment>
+    </unit>
+    <unit id="resizeWidthTitle">
+      <segment>
+        <source>Width in pixels</source>
+      </segment>
+    </unit>
+    <unit id="resizeHeightTitle">
+      <segment>
+        <source>Height in pixels</source>
+      </segment>
+    </unit>
+    <unit id="toggleRatioLockTitle">
+      <segment>
+        <source>Toggle ratio lock</source>
+      </segment>
+    </unit>
+    <unit id="resetSize">
+      <segment>
+        <source>Reset to original image size</source>
+      </segment>
+    </unit>
+    <unit id="rotateTool">
+      <segment>
+        <source>Rotate</source>
+      </segment>
+    </unit>
+    <unit id="textTool">
+      <segment>
+        <source>Text</source>
+      </segment>
+    </unit>
+    <unit id="textSpacings">
+      <segment>
+        <source>Text spacings</source>
+      </segment>
+    </unit>
+    <unit id="textAlignment">
+      <segment>
+        <source>Text alignment</source>
+      </segment>
+    </unit>
+    <unit id="fontFamily">
+      <segment>
+        <source>Font family</source>
+      </segment>
+    </unit>
+    <unit id="size">
+      <segment>
+        <source>Size</source>
+      </segment>
+    </unit>
+    <unit id="letterSpacing">
+      <segment>
+        <source>Letter Spacing</source>
+      </segment>
+    </unit>
+    <unit id="lineHeight">
+      <segment>
+        <source>Line height</source>
+      </segment>
+    </unit>
+    <unit id="warmthTool">
+      <segment>
+        <source>Warmth</source>
+      </segment>
+    </unit>
+    <unit id="addWatermark">
+      <segment>
+        <source>Add watermark</source>
+      </segment>
+    </unit>
+    <unit id="addTextWatermark">
+      <segment>
+        <source>Add text watermark</source>
+      </segment>
+    </unit>
+    <unit id="addWatermarkTitle">
+      <segment>
+        <source>Choose the watermark type</source>
+      </segment>
+    </unit>
+    <unit id="uploadWatermark">
+      <segment>
+        <source>Upload watermark</source>
+      </segment>
+    </unit>
+    <unit id="addWatermarkAsText">
+      <segment>
+        <source>Add as text</source>
+      </segment>
+    </unit>
+    <unit id="padding">
+      <segment>
+        <source>Padding</source>
+      </segment>
+    </unit>
+    <unit id="paddings">
+      <segment>
+        <source>Paddings</source>
+      </segment>
+    </unit>
+    <unit id="shadow">
+      <segment>
+        <source>Shadow</source>
+      </segment>
+    </unit>
+    <unit id="horizontal">
+      <segment>
+        <source>Horizontal</source>
+      </segment>
+    </unit>
+    <unit id="vertical">
+      <segment>
+        <source>Vertical</source>
+      </segment>
+    </unit>
+    <unit id="blur">
+      <segment>
+        <source>Blur</source>
+      </segment>
+    </unit>
+    <unit id="opacity">
+      <segment>
+        <source>Opacity</source>
+      </segment>
+    </unit>
+    <unit id="transparency">
+      <segment>
+        <source>Transparency</source>
+      </segment>
+    </unit>
+    <unit id="position">
+      <segment>
+        <source>Position</source>
+      </segment>
+    </unit>
+    <unit id="stroke">
+      <segment>
+        <source>Stroke</source>
+      </segment>
+    </unit>
+    <unit id="saveAsModalTitle">
+      <segment>
+        <source>Save as</source>
+      </segment>
+    </unit>
+    <unit id="extension">
+      <segment>
+        <source>Extension</source>
+      </segment>
+    </unit>
+    <unit id="format">
+      <segment>
+        <source>Format</source>
+      </segment>
+    </unit>
+    <unit id="nameIsRequired">
+      <segment>
+        <source>Name is required.</source>
+      </segment>
+    </unit>
+    <unit id="quality">
+      <segment>
+        <source>Quality</source>
+      </segment>
+    </unit>
+    <unit id="imageDimensionsHoverTitle">
+      <segment>
+        <source>Saved image size (width x height)</source>
+      </segment>
+    </unit>
+    <unit id="cropSizeLowerThanResizedWarning">
+      <segment>
+        <source>Note, the selected crop area is lower than the applied resize which might cause quality decrease</source>
+      </segment>
+    </unit>
+    <unit id="actualSize">
+      <segment>
+        <source>Actual size (100%)</source>
+      </segment>
+    </unit>
+    <unit id="fitSize">
+      <segment>
+        <source>Fit size</source>
+      </segment>
+    </unit>
+    <unit id="addImageTitle">
+      <segment>
+        <source>Select image to add...</source>
+      </segment>
+    </unit>
+    <unit id="mutualizedFailedToLoadImg">
+      <segment>
+        <source>Failed to load image.</source>
+      </segment>
+    </unit>
+    <unit id="tabsMenu">
+      <segment>
+        <source>Menu</source>
+      </segment>
+    </unit>
+    <unit id="download">
+      <segment>
+        <source>Download</source>
+      </segment>
+    </unit>
+    <unit id="width">
+      <segment>
+        <source>Width</source>
+      </segment>
+    </unit>
+    <unit id="height">
+      <segment>
+        <source>Height</source>
+      </segment>
+    </unit>
+    <unit id="cropItemNoEffect">
+      <segment>
+        <source>No preview available for this crop item</source>
+      </segment>
+    </unit>
+    <unit id="px">
+      <segment>
+        <source>px</source>
+      </segment>
+    </unit>
+    <unit id="invalidTextContent">
+      <segment>
+        <source>Invalid text content</source>
+      </segment>
+    </unit>
+    <unit id="baselineShift">
+      <segment>
+        <source>Baseline shift</source>
+      </segment>
+    </unit>
+    <unit id="aiTab">
+      <segment>
+        <source>AI tools</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalTool">
+      <segment>
+        <source>Object removal</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalBrushSize">
+      <segment>
+        <source>Brush size (px)</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalApplyButton">
+      <segment>
+        <source>Apply</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalBrushMode">
+      <segment>
+        <source>Brush mode</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalBrushCircleType">
+      <segment>
+        <source>Circle brush</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalBrushSquareType">
+      <segment>
+        <source>Square brush</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalApplyingText">
+      <segment>
+        <source>Removing the selected area</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalMarkModeTooltip">
+      <segment>
+        <source>Mark mode</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalUnMarkModeTooltip">
+      <segment>
+        <source>Unmark mode</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalCancelConfirmationTitle">
+      <segment>
+        <source>Cancel process</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalCancelConfirmationHint">
+      <segment>
+        <source>Do you really want to cancel removing the object from</source>
+      </segment>
+    </unit>
+    <unit id="objectRemovalCancelConfirmationHintCompletion">
+      <segment>
+        <source>asset?</source>
+      </segment>
+    </unit>
+    <unit id="theKeyword">
+      <segment>
+        <source>the</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

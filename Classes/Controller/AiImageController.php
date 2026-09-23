@@ -4,86 +4,130 @@ declare(strict_types=1);
 
 namespace Webconsulting\ImageWorkbench\Controller;
 
-use Netresearch\NrLlm\Specialized\Image\DallEImageService;
-use Netresearch\NrLlm\Specialized\Option\ImageGenerationOptions;
+use Netresearch\NrLlm\Exception\BudgetExceededException;
+use Netresearch\NrLlm\Exception\GuardrailApprovalRequiredException;
+use Netresearch\NrLlm\Exception\GuardrailPolicyException;
+use Netresearch\NrLlm\Exception\GuardrailViolationException;
+use Netresearch\NrLlm\Specialized\Exception\ServiceUnavailableException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
-use TYPO3\CMS\Core\Resource\File;
-use TYPO3\CMS\Core\Resource\ResourceFactory;
-use Webconsulting\ImageWorkbench\Http\JsonResponder;
+use Psr\Log\LoggerInterface;
+use TYPO3\CMS\Backend\Attribute\AsController;
+use TYPO3\CMS\Core\Http\JsonResponse;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Webconsulting\ImageWorkbench\Configuration\WorkbenchSettings;
+use Webconsulting\ImageWorkbench\Service\AiImageGenerator;
+use Webconsulting\ImageWorkbench\Service\EditableImageFinder;
 use Webconsulting\ImageWorkbench\Service\ImagePersistenceService;
+use Webconsulting\ImageWorkbench\Service\SavedFileDescriber;
 
-#[Autoconfigure(public: true)]
+/**
+ * Generates a new image from a prompt and stores it as a PNG next to the
+ * image that is open in the editor.
+ *
+ * Which nr-llm configuration pays comes from the user TSconfig of the
+ * editor's backend group, never from the request.
+ */
+#[AsController]
 final readonly class AiImageController
 {
+    use BackendContextTrait;
+
     public function __construct(
-        private DallEImageService $imageService,
-        private ResourceFactory $resourceFactory,
+        private EditableImageFinder $images,
+        private AiImageGenerator $generator,
         private ImagePersistenceService $persistence,
-        private JsonResponder $json,
+        private SavedFileDescriber $describer,
+        private LoggerInterface $logger,
     ) {}
 
     public function generate(ServerRequestInterface $request): ResponseInterface
     {
-        $body = (array)$request->getParsedBody();
-        $prompt = trim((string)($body['prompt'] ?? ''));
-        $configuration = trim((string)($body['configuration'] ?? 'image-workbench'));
-        $size = trim((string)($body['size'] ?? '1024x1024'));
-
-        if (mb_strlen($prompt) < 10 || mb_strlen($prompt) > 8_000) {
-            return $this->json->respond([
-                'success' => false,
-                'message' => 'The prompt must contain between 10 and 8,000 characters.',
-            ], 400);
+        $settings = WorkbenchSettings::fromBackendUser($this->backendUser());
+        if (!$settings->enabled || !$settings->aiEnabled) {
+            return $this->failure('error.aiDisabled', 403);
         }
-        if ($configuration === '' || !preg_match('/^[a-z0-9][a-z0-9._-]{1,63}$/i', $configuration)) {
-            return $this->json->respond(['success' => false, 'message' => 'Invalid nr-llm configuration.'], 400);
+
+        $body = $request->getParsedBody();
+        $body = is_array($body) ? $body : [];
+        $prompt = self::stringParameter($body, 'prompt');
+        $length = mb_strlen($prompt);
+        if ($length < AiImageGenerator::PROMPT_MIN_LENGTH || $length > AiImageGenerator::PROMPT_MAX_LENGTH) {
+            return $this->failure('error.promptLength', 400, [
+                'min' => AiImageGenerator::PROMPT_MIN_LENGTH,
+                'max' => AiImageGenerator::PROMPT_MAX_LENGTH,
+            ]);
+        }
+
+        $source = $this->images->find(self::stringParameter($body, 'target'));
+        if ($source === null) {
+            return $this->failure('error.notFound', 404);
+        }
+        if (!$source->checkActionPermission('read') || !$source->getParentFolder()->checkActionPermission('write')) {
+            return $this->failure('error.accessDenied', 403);
+        }
+        if (!$this->generator->isAvailable()) {
+            return $this->failure('error.aiUnavailable', 503);
+        }
+
+        $size = self::stringParameter($body, 'size') ?: $settings->aiDefaultSize;
+        if (!in_array($size, $this->generator->sizesFor($this->generator->modelFor($settings->aiConfiguration)), true)) {
+            return $this->failure('error.size', 400);
         }
 
         try {
-            $resource = $this->resourceFactory->retrieveFileOrFolderObject((string)($body['target'] ?? ''));
-        } catch (\Throwable) {
-            return $this->json->respond(['success' => false, 'message' => 'Source file not found.'], 404);
-        }
-        if (!$resource instanceof File
-            || !$resource->checkActionPermission('read')
-            || !$resource->getParentFolder()->checkActionPermission('write')
-        ) {
-            return $this->json->respond(['success' => false, 'message' => 'Insufficient file permissions.'], 403);
-        }
-
-        try {
-            $model = $this->imageService->resolveModelForConfiguration($configuration, 'gpt-image-2');
-            $systemPrompt = trim($this->imageService->getConfigurationSystemPrompt($configuration));
-            $effectivePrompt = trim($systemPrompt . ($systemPrompt !== '' ? "\n\n" : '') . $prompt);
-            $result = $this->imageService->generate(
-                $effectivePrompt,
-                new ImageGenerationOptions(
-                    model: $model,
-                    size: $size,
-                    quality: null,
-                    style: null,
-                    format: null,
-                    configuration: $configuration,
-                ),
+            $image = $this->generator->generate(
+                $prompt,
+                $settings->aiConfiguration,
+                $size,
+                $this->backendUser()->getUserId() ?? 0,
             );
-            $binary = $result->getBinaryContent() ?? $result->downloadFromUrl();
-            if (!is_string($binary) || $binary === '') {
-                throw new \RuntimeException('The generated image could not be downloaded.');
-            }
-            $name = $resource->getNameWithoutExtension() . '-ai-' . date('Ymd-His');
-            $saved = $this->persistence->saveCopy($resource, $binary, $name, 'png');
+            $saved = $this->persistence->saveCopy(
+                $source,
+                $image->binary,
+                $source->getNameWithoutExtension() . '-ai-' . new \DateTimeImmutable()->format('Ymd-His'),
+                'png',
+            );
+        } catch (BudgetExceededException $exception) {
+            return $this->failure('error.budgetExceeded', 429, detail: $exception->getMessage());
+        } catch (GuardrailViolationException|GuardrailPolicyException|GuardrailApprovalRequiredException $exception) {
+            return $this->failure('error.promptRejected', 422, detail: $exception->getMessage());
+        } catch (ServiceUnavailableException) {
+            return $this->failure('error.aiUnavailable', 503);
         } catch (\Throwable $exception) {
-            return $this->json->respond(['success' => false, 'message' => $exception->getMessage()], 502);
+            $this->logger->error('Image generation for {file} failed: {message}', [
+                'file' => $source->getCombinedIdentifier(),
+                'message' => $exception->getMessage(),
+                'exception' => $exception,
+            ]);
+            // Provider errors can quote request details; only administrators see them.
+            return $this->failure(
+                'error.generationFailed',
+                502,
+                detail: $this->backendUser()->isAdmin() ? $exception->getMessage() : '',
+            );
         }
 
-        return $this->json->respond([
+        return new JsonResponse([
             'success' => true,
-            'file' => ['uid' => $saved->getUid(), 'name' => $saved->getName()],
-            'model' => $result->model,
-            'configuration' => $configuration,
-            'usageTrackedBy' => 'nr-llm',
+            'message' => $this->label('ai.generated', ['name' => $saved->getName(), 'model' => $image->model]),
+            'file' => $this->describer->describe(
+                $saved,
+                GeneralUtility::sanitizeLocalUrl(self::stringParameter($body, 'returnUrl'), $request),
+            ),
+            'model' => $image->model,
         ]);
+    }
+
+    /**
+     * @param array<string, string|int> $arguments
+     */
+    private function failure(string $key, int $status, array $arguments = [], string $detail = ''): ResponseInterface
+    {
+        return new JsonResponse([
+            'success' => false,
+            'message' => $this->label($key, $arguments),
+            'detail' => $detail,
+        ], $status);
     }
 }

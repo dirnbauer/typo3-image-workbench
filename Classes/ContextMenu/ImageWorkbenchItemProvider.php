@@ -7,14 +7,23 @@ namespace Webconsulting\ImageWorkbench\ContextMenu;
 use TYPO3\CMS\Backend\ContextMenu\ItemProviders\AbstractProvider;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Resource\File;
-use TYPO3\CMS\Core\Resource\ResourceFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Webconsulting\ImageWorkbench\Configuration\WorkbenchSettings;
+use Webconsulting\ImageWorkbench\Service\EditableImageFinder;
 
+/**
+ * "Edit image" in the context menu of a JPEG, PNG or WebP file the editor
+ * may write.
+ */
 final class ImageWorkbenchItemProvider extends AbstractProvider
 {
-    private const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp'];
-
     private ?File $file = null;
+
+    public function __construct(
+        private readonly EditableImageFinder $images,
+        private readonly UriBuilder $uriBuilder,
+    ) {
+        parent::__construct();
+    }
 
     public function canHandle(): bool
     {
@@ -31,42 +40,31 @@ final class ImageWorkbenchItemProvider extends AbstractProvider
         parent::initialize();
         $this->itemsConfiguration = [
             'imageWorkbench' => [
-                'label' => 'Bild bearbeiten',
-                'iconIdentifier' => 'actions-image',
+                'label' => 'LLL:EXT:image_workbench/Resources/Private/Language/locallang.xlf:action.edit',
+                'iconIdentifier' => 'actions-brush',
                 'callbackAction' => 'open',
             ],
         ];
-
-        try {
-            $resource = GeneralUtility::makeInstance(ResourceFactory::class)
-                ->retrieveFileOrFolderObject($this->identifier);
-            $this->file = $resource instanceof File ? $resource : null;
-        } catch (\Throwable) {
-            $this->file = null;
-        }
+        $this->file = $this->images->find($this->identifier);
     }
 
     protected function canRender(string $itemName, string $type): bool
     {
-        if ($itemName !== 'imageWorkbench' || in_array($itemName, $this->disabledItems, true)) {
-            return false;
-        }
-
-        return $this->file instanceof File
-            && in_array(strtolower($this->file->getExtension()), self::ALLOWED_EXTENSIONS, true)
+        return $itemName === 'imageWorkbench'
+            && !in_array($itemName, $this->disabledItems, true)
+            && $this->file !== null
             && $this->file->checkActionPermission('write')
-            && (bool)($this->backendUser->getTSConfig()['options.']['imageWorkbench.']['enable'] ?? true);
+            && WorkbenchSettings::fromBackendUser($this->backendUser)->enabled;
     }
 
-    /** @return array<string, string> */
+    /**
+     * @return array<string, string>
+     */
     protected function getAdditionalAttributes(string $itemName): array
     {
-        $url = (string)GeneralUtility::makeInstance(UriBuilder::class)
-            ->buildUriFromRoute('image_workbench_edit');
-
         return [
             'data-callback-module' => '@webconsulting/image-workbench/context-menu-actions.js',
-            'data-action-url' => $url,
+            'data-action-url' => (string)$this->uriBuilder->buildUriFromRoute('image_workbench_edit'),
         ];
     }
 }

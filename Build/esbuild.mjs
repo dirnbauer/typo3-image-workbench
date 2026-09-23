@@ -1,24 +1,35 @@
 import { build } from 'esbuild';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..');
 
-const cssOutput = resolve(root, 'Resources/Public/JavaScript/Vendor/filerobot-image-editor.bundle.css');
-
 await build({
   entryPoints: [resolve(here, 'entry.mjs')],
   bundle: true,
   minify: true,
-  format: 'iife',
+  format: 'esm',
+  target: 'es2022',
   define: { 'process.env.NODE_ENV': '"production"' },
   loader: { '.js': 'jsx' },
-  outfile: resolve(root, 'Resources/Public/JavaScript/Vendor/filerobot-image-editor.bundle.js'),
+  outfile: resolve(root, 'Resources/Public/JavaScript/Vendor/filerobot-image-editor.js'),
   legalComments: 'none',
   logLevel: 'info',
 });
 
-const css = await readFile(cssOutput, 'utf8');
-await writeFile(cssOutput, css.replaceAll('border-radius:4px', 'border-radius:0'), 'utf8');
+// The editor labels are backend labels (Resources/Private/Language/locallang_editor.xlf).
+// A Filerobot update that adds or renames a label must not ship half-translated.
+const { default: defaults } = await import('react-filerobot-image-editor/lib/context/defaultTranslations.js');
+const xliff = await readFile(resolve(root, 'Resources/Private/Language/locallang_editor.xlf'), 'utf8');
+const known = new Set([...xliff.matchAll(/<unit id="([^"]+)">/g)].map((match) => match[1]));
+const missing = Object.keys(defaults).filter((key) => !known.has(key));
+const stale = [...known].filter((key) => !(key in defaults));
+if (missing.length || stale.length) {
+  console.error('locallang_editor.xlf is out of sync with Filerobot.');
+  if (missing.length) console.error(`  missing: ${missing.join(', ')}`);
+  if (stale.length) console.error(`  unknown: ${stale.join(', ')}`);
+  process.exit(1);
+}
+console.log(`editor labels in sync (${known.size} keys)`);

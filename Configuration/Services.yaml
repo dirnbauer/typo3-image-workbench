@@ -6,7 +6,3 @@ services:
 
   Webconsulting\ImageWorkbench\:
     resource: '../Classes/*'
-
-  Webconsulting\ImageWorkbench\ContextMenu\ImageWorkbenchItemProvider:
-    tags:
-      - name: backend.contextmenu.itemprovider

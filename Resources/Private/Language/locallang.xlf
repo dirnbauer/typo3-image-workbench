@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en">
+  <file id="messages">
+    <unit id="editor.title">
+      <segment>
+        <source>Image Workbench</source>
+      </segment>
+    </unit>
+    <unit id="editor.heading">
+      <segment>
+        <source>Edit {name}</source>
+      </segment>
+    </unit>
+    <unit id="editor.region">
+      <segment>
+        <source>Image editor</source>
+      </segment>
+    </unit>
+    <unit id="editor.loading">
+      <segment>
+        <source>Loading the image editor…</source>
+      </segment>
+    </unit>
+    <unit id="editor.loadFailed">
+      <segment>
+        <source>The image editor could not be started. Reload the page to try again.</source>
+      </segment>
+    </unit>
+    <unit id="action.edit">
+      <segment>
+        <source>Edit image</source>
+      </segment>
+    </unit>
+    <unit id="action.saveCopy">
+      <segment>
+        <source>Save as copy</source>
+      </segment>
+    </unit>
+    <unit id="action.overwrite">
+      <segment>
+        <source>Overwrite original</source>
+      </segment>
+    </unit>
+    <unit id="save.dialog.title">
+      <segment>
+        <source>Save as copy</source>
+      </segment>
+    </unit>
+    <unit id="save.dialog.filename">
+      <segment>
+        <source>File name</source>
+      </segment>
+    </unit>
+    <unit id="save.dialog.help">
+      <segment>
+        <source>The copy is stored in the same folder as the original. An existing file is never replaced; a number is added instead.</source>
+      </segment>
+    </unit>
+    <unit id="save.dialog.submit">
+      <segment>
+        <source>Save copy</source>
+      </segment>
+    </unit>
+    <unit id="save.dialog.required">
+      <segment>
+        <source>Enter a file name.</source>
+      </segment>
+    </unit>
+    <unit id="dialog.cancel">
+      <segment>
+        <source>Cancel</source>
+      </segment>
+    </unit>
+    <unit id="overwrite.dialog.title">
+      <segment>
+        <source>Overwrite the original?</source>
+      </segment>
+    </unit>
+    <unit id="overwrite.dialog.message">
+      <segment>
+        <source>{name} is replaced by the edited image and its thumbnails are regenerated. Every page that shows the file shows the new version. This cannot be undone.</source>
+      </segment>
+    </unit>
+    <unit id="overwrite.dialog.submit">
+      <segment>
+        <source>Overwrite</source>
+      </segment>
+    </unit>
+    <unit id="close.dialog.title">
+      <segment>
+        <source>Discard your changes?</source>
+      </segment>
+    </unit>
+    <unit id="close.dialog.message">
+      <segment>
+        <source>The edits you made since the last save will be lost.</source>
+      </segment>
+    </unit>
+    <unit id="close.dialog.discard">
+      <segment>
+        <source>Discard changes</source>
+      </segment>
+    </unit>
+    <unit id="close.dialog.keep">
+      <segment>
+        <source>Keep editing</source>
+      </segment>
+    </unit>
+    <unit id="save.copied">
+      <segment>
+        <source>Saved as {name}.</source>
+      </segment>
+    </unit>
+    <unit id="save.overwritten">
+      <segment>
+        <source>{name} was overwritten.</source>
+      </segment>
+    </unit>
+    <unit id="save.success.title">
+      <segment>
+        <source>Image saved</source>
+      </segment>
+    </unit>
+    <unit id="save.failure.title">
+      <segment>
+        <source>The image could not be saved</source>
+      </segment>
+    </unit>
+    <unit id="save.openCopy">
+      <segment>
+        <source>Edit the copy</source>
+      </segment>
+    </unit>
+    <unit id="unavailable.title">
+      <segment>
+        <source>This image cannot be edited</source>
+      </segment>
+    </unit>
+    <unit id="unavailable.notFound">
+      <segment>
+        <source>The file does not exist any more, or it is not a JPEG, PNG or WebP image.</source>
+      </segment>
+    </unit>
+    <unit id="unavailable.accessDenied">
+      <segment>
+        <source>You are not allowed to change this file.</source>
+      </segment>
+    </unit>
+    <unit id="ai.title">
+      <segment>
+        <source>Generate with AI</source>
+      </segment>
+    </unit>
+    <unit id="ai.subtitle">
+      <segment>
+        <source>Creates a new PNG next to the original</source>
+      </segment>
+    </unit>
+    <unit id="ai.prompt">
+      <segment>
+        <source>Describe the image</source>
+      </segment>
+    </unit>
+    <unit id="ai.prompt.help">
+      <segment>
+        <source>Subject, style, perspective and mood, between {min} and {max} characters.</source>
+      </segment>
+    </unit>
+    <unit id="ai.size">
+      <segment>
+        <source>Size</source>
+      </segment>
+    </unit>
+    <unit id="ai.size.square">
+      <segment>
+        <source>Square, {width} × {height}</source>
+      </segment>
+    </unit>
+    <unit id="ai.size.landscape">
+      <segment>
+        <source>Landscape, {width} × {height}</source>
+      </segment>
+    </unit>
+    <unit id="ai.size.portrait">
+      <segment>
+        <source>Portrait, {width} × {height}</source>
+      </segment>
+    </unit>
+    <unit id="ai.size.auto">
+      <segment>
+        <source>Automatic, the model decides</source>
+      </segment>
+    </unit>
+    <unit id="ai.generate">
+      <segment>
+        <source>Generate image</source>
+      </segment>
+    </unit>
+    <unit id="ai.generating">
+      <segment>
+        <source>Generating the image. This can take up to a minute…</source>
+      </segment>
+    </unit>
+    <unit id="ai.generated">
+      <segment>
+        <source>{name} was created with {model}.</source>
+      </segment>
+    </unit>
+    <unit id="ai.billing">
+      <segment>
+        <source>Usage and cost are booked in nr-llm under the configuration “{configuration}” (model {model}).</source>
+      </segment>
+    </unit>
+    <unit id="ai.results">
+      <segment>
+        <source>Generated on this page</source>
+      </segment>
+    </unit>
+    <unit id="ai.openInWorkbench">
+      <segment>
+        <source>Edit {name}</source>
+      </segment>
+    </unit>
+    <unit id="ai.success.title">
+      <segment>
+        <source>Image generated</source>
+      </segment>
+    </unit>
+    <unit id="ai.failure.title">
+      <segment>
+        <source>The image could not be generated</source>
+      </segment>
+    </unit>
+    <unit id="ai.unavailable.title">
+      <segment>
+        <source>AI generation is not set up</source>
+      </segment>
+    </unit>
+    <unit id="ai.unavailable.message">
+      <segment>
+        <source>Store an API key for the image provider in nr-llm, then reload this page. Editors do not see this panel until then.</source>
+      </segment>
+    </unit>
+    <unit id="error.accessDenied">
+      <segment>
+        <source>You are not allowed to change this file.</source>
+      </segment>
+    </unit>
+    <unit id="error.notFound">
+      <segment>
+        <source>The image does not exist, or it is not a JPEG, PNG or WebP file.</source>
+      </segment>
+    </unit>
+    <unit id="error.invalidImage">
+      <segment>
+        <source>The editor sent no usable image data.</source>
+      </segment>
+    </unit>
+    <unit id="error.saveFailed">
+      <segment>
+        <source>Saving the image failed.</source>
+      </segment>
+    </unit>
+    <unit id="error.aiDisabled">
+      <segment>
+        <source>AI generation is switched off for your backend group.</source>
+      </segment>
+    </unit>
+    <unit id="error.aiUnavailable">
+      <segment>
+        <source>AI generation is not available right now.</source>
+      </segment>
+    </unit>
+    <unit id="error.promptLength">
+      <segment>
+        <source>The description must contain between {min} and {max} characters.</source>
+      </segment>
+    </unit>
+    <unit id="error.size">
+      <segment>
+        <source>This size is not available for the configured model.</source>
+      </segment>
+    </unit>
+    <unit id="error.budgetExceeded">
+      <segment>
+        <source>Your AI budget is used up.</source>
+      </segment>
+    </unit>
+    <unit id="error.promptRejected">
+      <segment>
+        <source>The description was rejected by the content policy.</source>
+      </segment>
+    </unit>
+    <unit id="error.generationFailed">
+      <segment>
+        <source>The image could not be generated.</source>
+      </segment>
+    </unit>
+    <unit id="error.network">
+      <segment>
+        <source>The server did not answer. Check your connection and try again.</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>
