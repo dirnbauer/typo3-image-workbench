@@ -63,7 +63,7 @@ final class ImageWorkbenchItemProvider extends AbstractProvider
     protected function getAdditionalAttributes(string $itemName): array
     {
         return [
-            'data-callback-module' => '@webconsulting/image-workbench/context-menu-actions.js',
+            'data-callback-module' => '@webconsulting/image-workbench/context-menu-actions',
             'data-action-url' => (string)$this->uriBuilder->buildUriFromRoute('image_workbench_edit'),
         ];
     }
