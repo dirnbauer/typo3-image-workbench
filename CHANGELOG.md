@@ -5,6 +5,15 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2026-09-27
+
+### Fixed
+
+- **Edit image** in the file list context menu opens the editor again. The callback module was
+  registered with its `.js` extension, which TYPO3 adds itself, so the browser requested
+  `context-menu-actions.js.js` and the entry did nothing. In the tile view that menu is the only
+  way into the editor.
+
 ## [0.3.0] - 2026-09-23
 
 The editor page is now built like a TYPO3 v14 module instead of a branded page of its own, the vendor bundle is a proper ES module, and every endpoint takes its settings from the server.
