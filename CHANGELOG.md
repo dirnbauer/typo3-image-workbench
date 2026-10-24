@@ -5,6 +5,10 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.3.3 — 2026-10-24
+
+- Refresh the Babel and browser compatibility dependency lock and rebuild the image editor on Node 26.12.1 with npm 12.2.1.
+
 ## [0.3.2] - 2026-10-23
 
 ### Changed
